@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ASPTest.Models.Car>
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width"/>
+	<title>Index</title>
+</head>
+<body>
+<div>
+	<table>
+		<tr><td>ID</td><td>Brand</td><td>Model</td><td>Price</td><td>Bought</td><td>Sold</td></tr>
+		@foreach (var row in Model)
+		{
+			<tr><td>@row.Id</td><td>@row.Brand</td><td>@row.Model</td><td>@row.Price</td><td>@row.Bought.ToShortDateString()</td><td>@row.Sold.ToShortDateString()</td></tr>
+		}
+	</table>
+</div>
+</body>
+</html>
