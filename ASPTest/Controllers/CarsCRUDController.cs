@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -19,6 +20,24 @@ namespace ASPTest.Controllers
         {
             return View(db.Cars.ToList());
         }
+
+	    [HttpPost]
+	    public ActionResult Index(SearchCar carModel)
+	    {
+		    var cars = from car in db.Cars select car;
+
+			Debug.WriteLine(carModel.ModelFind);
+			Debug.WriteLine(carModel.BrandFind);
+
+		    if (!carModel.IsEmpty())
+		    {
+			    cars = from car in db.Cars
+					   where car.Model.Equals(carModel.ModelFind) && car.Brand.Equals(carModel.BrandFind)
+					   select car;
+		    }
+
+		    return View(cars.ToList());
+	    }
 
         // GET: CarsCRUD/Details/5
         public ActionResult Details(int? id)
